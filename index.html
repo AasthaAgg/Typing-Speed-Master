@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ===== RULES PAGE ===== -->
+
+    <div class="rulesPage">
+        <h2>Rules:</h2>
+
+        <p>Type in the input field the highlighted word.</p>
+        <p>The correct words will turn <span class="green">green</span>.</p>
+        <p>And Incorrect letters will turn <span class="red">red</span>.</p>
+        <br>
+        <p>Have fun! 😃</p></p>
+
+        <button type="submit" onclick="hideRules()">Let's Start</button>
+    </div>
+
+    <!-- ===== MAIN SECTION ===== -->
+
+    <div class="main">
+        
+        <h1>Typing Speed Test</h1>
+
+
+
+        <!-- ===== GAME AREA ===== -->
+
+        <div class="gameArea">
+
+            <!-- ===== HEADER ===== -->
+
+            <header>
+                <section class="words"> Words <br> <span class="noOfWords">0</span></section>
+                <section class="timer"> Time Remaining<br> <span class="time">00 : 60</span></section>
+                <button type="submit" onclick="showRules()" class="rulesButton">?</button>
+            </header>
+    
+            <!-- <h3>Start typing to start the test</h3> -->
+    
+            <!-- ===== MAIN AREA ===== -->
+
+            <main>
+                <section class="textArea">qwertyuiopasdfghjklzxcvbnm</section>
+                <textarea class="inputArea" placeholder="Start typing here..." onclick="startTimer()"></textarea>
+            </main>
+
+        </div>
+
+        
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
