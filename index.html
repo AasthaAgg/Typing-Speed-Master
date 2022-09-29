@@ -29,32 +29,40 @@
         
         <h1>Typing Speed Test</h1>
 
-
-
         <!-- ===== GAME AREA ===== -->
 
         <div class="gameArea">
 
             <!-- ===== HEADER ===== -->
 
-            <header>
+            <header class="header1">
                 <section class="words"> Words <br> <span class="noOfWords">0</span></section>
-                <section class="timer"> Time Remaining<br> <span class="time">00 : 60</span></section>
-                <button type="submit" onclick="showRules()" class="rulesButton">?</button>
+                <section class="wordspermin"> Words / min <br> <span class="noOfWordsPerMin">0</span></section>
+                <section class="characters"> Characters <br> <span class="noOfChar">0</span></section>
             </header>
-    
-            <!-- <h3>Start typing to start the test</h3> -->
+
+            <!-- ===== MID PORTION ===== -->
+
+            <section class="timer"> Time Remaining <br><span class="time">00 : 60</span></section>
+            <button type="submit" onclick="showRules()" class="rulesButton">?</button>
+
+            <h3 class="startStmt">Start typing to start the test...</h3>
     
             <!-- ===== MAIN AREA ===== -->
 
             <main>
-                <section class="textArea">qwertyuiopasdfghjklzxcvbnm</section>
-                <textarea class="inputArea" placeholder="Start typing here..." onclick="startTimer()"></textarea>
+                <section class="textArea">qwerty ui op as dfgh jkl zx cv bnm</section>
+                <textarea name="inputText" class="inputArea" placeholder="Start typing here..." oninput="handleInput(event)"></textarea>
             </main>
 
         </div>
 
-        
+    </div>
+
+    <!-- ===== END PAGE ===== -->
+
+    <div class="endPage">
+        <h1 class="resWPM">Your WPM is </h1>
     </div>
 
     <script src="script.js"></script>
