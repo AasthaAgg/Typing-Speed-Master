@@ -1,9 +1,9 @@
 var rules = document.querySelector('.rulesPage');
 var main = document.querySelector('.main');
 var timer;
-var secs = 60;
+var secs = 3;
 var time = document.querySelector('.time');
-var inputWords = 0;
+var inputWords;
 var wpm = 0;
 var text;
 var input = document.querySelector('.inputArea').innerHTML;
@@ -18,12 +18,12 @@ const texts = [
 
 setText();
 
-
 // ===== DISPLAY RULES =====
 
 function showRules(){
     rules.style.display = "flex";
     fadeAll();
+    clearTimeout(timer);
 }
 
 // ===== HIDE RULES =====
@@ -31,6 +31,7 @@ function showRules(){
 function hideRules(){
     rules.style.display = "none";
     removeFade();
+    startTimer(secs);
 }
 
 // ===== FADE BACKGROUND =====
@@ -45,14 +46,27 @@ function removeFade(){
     main.style.filter = "blur(0)";
 }
 
+// ===== SET TEXT IN TEXTAREA =====
+
+function setText(){
+    text = texts[Math.floor(Math.random() * texts.length)];
+    document.querySelector('.textArea').innerHTML = text;
+}
 
 // ===== INPUT HANDLING FUNCTION =====
 
 function handleInput(event){
-    input += event.data;
+    if(event.data == null){
+        input = input.substring(0 , input.length-1);
+    }
+    else{
+        input += event.data;
+    }
+
     if(input.length == 1){
         startGame();
     }
+
     setCharacters();
     setWords();
     setWPM();
@@ -63,14 +77,8 @@ function handleInput(event){
 
 function startGame(){
     removeStartHead();
-    startTimer();
-}
-
-// ===== SET TEXT IN TEXTAREA =====
-
-function setText(){
-    text = texts[Math.floor(Math.random() * texts.length)];
-    document.querySelector('.textArea').innerHTML = text;
+    clearTimeout(timer);
+    startTimer(secs);
 }
 
 // ===== REMOVE HEAD =====
@@ -81,19 +89,19 @@ function removeStartHead(){
 
 // ===== START TIMER =====
 
-function startTimer(){
-    if(secs < 10){
-    time.innerHTML = "00 : 0" + secs;
-
+function startTimer(sec){
+    if(sec < 10){
+        time.innerHTML = "00 : 0" + secs;   
     }else{
         time.innerHTML = "00 : " + secs;
     }
 
     if(secs < 1){
-        clearTimeout('timer');
+        clearTimeout(timer);
         displayEndPage();
     }else{
         secs--;
+        setWPM();
 	    timer = setTimeout('startTimer('+secs+')',1000);
     }
 
@@ -108,16 +116,19 @@ function setCharacters(){
 // ===== SET NO. OF WORDS INPUT =====
 
 function setWords(){
-    if(input[input.length-1] === ' '){
-        inputWords++;
+    inputWords = input.split(" ").length;
+
+    if(input.length == 0){
+        inputWords = '0';
     }
+
     document.querySelector('.noOfWords').innerHTML = inputWords;
 }
 
 // ===== SET WORDS PER MINUTE =====
 
 function setWPM(){
-    wpm = Math.ceil(inputWords*60 / (60 - secs));
+    wpm = Math.floor((inputWords) * 60 / (60 - secs));
     document.querySelector('.noOfWordsPerMin').innerHTML = wpm;
 }
 
@@ -139,4 +150,6 @@ function displayEndPage(){
 
 function setEndPage(){
     document.querySelector('.resWPM').innerHTML += wpm;
+    document.querySelector('.resChar').innerHTML += input.length;
+    document.querySelector('.resWords').innerHTML += inputWords;
 }
