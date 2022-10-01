@@ -52,7 +52,7 @@
 
             <main>
                 <section class="textArea">qwerty ui op as dfgh jkl zx cv bnm</section>
-                <textarea name="inputText" class="inputArea" placeholder="Start typing here..." oninput="handleInput(event)"></textarea>
+                <textarea name="inputText" class="inputArea" placeholder="Start typing here..." oninput="handleInput()"></textarea>
             </main>
 
         </div>
@@ -62,9 +62,10 @@
     <!-- ===== END PAGE ===== -->
 
     <div class="endPage">
-        <h1 class="resWPM">Your WPM is </h1>
-        <h2 class="resChar">No. of characters : </h2>
-        <h2 class="resWords">No. of words : </h2>
+        <h1>Your speed is <span class="resWPM"></span></h1>
+        <h2>No. of characters : <span class="resChar"></span></h2>
+        <h2>No. of words : <span class="resWords"></span></h2>
+        <button type="submit" onclick="location.reload()">Try again!!</button>
     </div>
 
     <script src="script.js"></script>

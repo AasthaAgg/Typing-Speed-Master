@@ -1,12 +1,12 @@
 var rules = document.querySelector('.rulesPage');
 var main = document.querySelector('.main');
-var timer;
-var secs = 3;
-var time = document.querySelector('.time');
-var inputWords;
-var wpm = 0;
 var text;
-var input = document.querySelector('.inputArea').innerHTML;
+var timer;
+var secs = 60;
+var time = document.querySelector('.time');
+var inputChar = 0;
+var inputWords = 0;
+var wpm = 0;
 var end = document.querySelector('.endPage');
 
 const texts = [
@@ -31,7 +31,9 @@ function showRules(){
 function hideRules(){
     rules.style.display = "none";
     removeFade();
-    startTimer(secs);
+    if(secs < 60){
+        startTimer(secs);
+    }
 }
 
 // ===== FADE BACKGROUND =====
@@ -55,22 +57,17 @@ function setText(){
 
 // ===== INPUT HANDLING FUNCTION =====
 
-function handleInput(event){
-    if(event.data == null){
-        input = input.substring(0 , input.length-1);
-    }
-    else{
-        input += event.data;
-    }
+function handleInput(){
+    var inputs = document.querySelector('textarea').value;
 
-    if(input.length == 1){
+    if(inputs.length == 1){
         startGame();
     }
 
-    setCharacters();
-    setWords();
-    setWPM();
-    // checkInput();
+    setCharacters(inputs.length);
+    setWords(inputs);
+    setWPM(inputs);
+    checkInput(inputs);
 }
 
 // ===== START GAME =====
@@ -109,19 +106,19 @@ function startTimer(sec){
 
 // ===== SET NO. OF CHARACTERS INPUT =====
 
-function setCharacters(){
-    document.querySelector('.noOfChar').innerHTML = input.length;
+function setCharacters(input){
+    inputChar = input;
+    document.querySelector('.noOfChar').innerHTML = inputChar;
 }
 
 // ===== SET NO. OF WORDS INPUT =====
 
-function setWords(){
+function setWords(input){
     inputWords = input.split(" ").length;
 
     if(input.length == 0){
         inputWords = '0';
     }
-
     document.querySelector('.noOfWords').innerHTML = inputWords;
 }
 
@@ -134,8 +131,17 @@ function setWPM(){
 
 // ===== CHECKING CORRECTNESS OF INPUT =====
 
-function checkInput(){
-    
+function checkInput(input){
+    for(var i=0;i<input.length; i++){
+        if(text.charAt(i) != input.charAt(i)){
+            document.querySelector('.textArea').style.backgroundColor = 'red';
+            document.querySelector('.textArea').style.color = 'white';
+            break;
+        }else{
+            document.querySelector('.textArea').style.color = 'green';
+            document.querySelector('.textArea').style.backgroundColor = 'white';
+        }
+    }
 }
 
 // ===== DISPLAY END PAGE =====
@@ -149,7 +155,7 @@ function displayEndPage(){
 // ===== SET END PAGE =====
 
 function setEndPage(){
-    document.querySelector('.resWPM').innerHTML += wpm;
-    document.querySelector('.resChar').innerHTML += input.length;
-    document.querySelector('.resWords').innerHTML += inputWords;
+    document.querySelector('.resWPM').innerHTML = wpm+" wpm";
+    document.querySelector('.resChar').innerHTML = inputChar;
+    document.querySelector('.resWords').innerHTML = inputWords+" words";
 }

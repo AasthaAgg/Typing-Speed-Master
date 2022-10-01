@@ -219,3 +219,21 @@ body{
 .endPage:hover{
     box-shadow: 4px 8px 25px rgba(0, 0, 0, 0.687);
 }
+
+.endPage button{
+    margin-top: 2rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.5rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    background-color: black;
+    color: white;
+    border: solid rgb(45, 48, 5);
+    box-shadow: 6px 6px 10px rgb(118, 118, 6);
+    cursor: pointer;
+}
+
+.endPage button:hover{
+    border: solid black;
+    box-shadow: 8px 8px 15px rgb(181, 181, 7);
+}
