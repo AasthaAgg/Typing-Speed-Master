@@ -9,6 +9,24 @@
 </head>
 <body>
 
+
+    <!-- ===== WELCOME ===== -->
+
+    <div class="welcome">
+
+        <h1>Typing Speed Master</h1>
+
+        <p>How fast are your fingers?🤔</p>
+        <p>Do you think you are a good typer..😎</p>
+        <br>
+        <p>Let's find out! 🧐</p>
+        <p>Take the 1 minute typing-test now! ⌨</p>
+        <h2>GOOD LUCK!!</h2>
+        
+        <button type="submit" onclick="start()">Start</button>
+        
+    </div>
+
     <!-- ===== RULES PAGE ===== -->
 
     <div class="rulesPage">
@@ -27,8 +45,6 @@
 
     <div class="main">
         
-        <h1>Typing Speed Test</h1>
-
         <!-- ===== GAME AREA ===== -->
 
         <div class="gameArea">
@@ -51,7 +67,7 @@
             <!-- ===== MAIN AREA ===== -->
 
             <main>
-                <section class="textArea">qwerty ui op as dfgh jkl zx cv bnm</section>
+                <section class="textArea"></section>
                 <textarea name="inputText" class="inputArea" placeholder="Start typing here..." oninput="handleInput()"></textarea>
             </main>
 
@@ -62,9 +78,12 @@
     <!-- ===== END PAGE ===== -->
 
     <div class="endPage">
-        <h1>Your speed is <span class="resWPM"></span></h1>
-        <h2>No. of characters : <span class="resChar"></span></h2>
-        <h2>No. of words : <span class="resWords"></span></h2>
+        <h2>OOPs.. Time's Up!!</h2>
+        <p class="trophy">🏆</p>
+        <p>Your typing speed is <span class="resWPM"></span></p>
+        <br>
+        <p>No. of characters : <span class="resChar"></span></p>
+        <p>No. of words : <span class="resWords"></span></p>
         <button type="submit" onclick="location.reload()">Try again!!</button>
     </div>
 

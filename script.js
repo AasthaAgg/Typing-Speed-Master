@@ -1,3 +1,4 @@
+var welcome = document.querySelector('.welcome');
 var rules = document.querySelector('.rulesPage');
 var main = document.querySelector('.main');
 var text;
@@ -18,34 +19,58 @@ const texts = [
 
 setText();
 
+
+// ===== START =====
+
+function start(){
+
+    welcome.style.display = "none";
+    removeBlur();
+}
+
+
 // ===== DISPLAY RULES =====
 
 function showRules(){
+        
+    // display rules block
     rules.style.display = "flex";
-    fadeAll();
+    BlurAll();
+
+    // pause timer
     clearTimeout(timer);
 }
 
 // ===== HIDE RULES =====
 
 function hideRules(){
+   
+    // hide rules block
     rules.style.display = "none";
-    removeFade();
+    removeBlur();
+
+    // if the timer is already started, continue timer
     if(secs < 60){
         startTimer(secs);
     }
 }
 
-// ===== FADE BACKGROUND =====
+// ===== Blur BACKGROUND =====
 
-function fadeAll(){
+function BlurAll(){
     main.style.filter = "blur(8px)";
+    
+    // disable the input area
+    document.querySelector('textarea').disabled = true;
 }
 
-// ===== REMOVE FADE EFFECT =====
+// ===== REMOVE Blur EFFECT =====
 
-function removeFade(){
+function removeBlur(){
     main.style.filter = "blur(0)";
+
+     // enable the input area
+     document.querySelector('textarea').disabled = false;
 }
 
 // ===== SET TEXT IN TEXTAREA =====
@@ -64,16 +89,21 @@ function handleInput(){
         startGame();
     }
 
+    // set all parameters
     setCharacters(inputs.length);
     setWords(inputs);
     setWPM(inputs);
-    checkInput(inputs);
+
+    // check accuracy of input
+    checkInput(inputs.length-1, inputs.charAt(inputs.length-1));
 }
 
 // ===== START GAME =====
 
 function startGame(){
     removeStartHead();
+
+    // start timer
     clearTimeout(timer);
     startTimer(secs);
 }
@@ -97,8 +127,8 @@ function startTimer(sec){
         clearTimeout(timer);
         displayEndPage();
     }else{
-        secs--;
         setWPM();
+        secs--;
 	    timer = setTimeout('startTimer('+secs+')',1000);
     }
 
@@ -131,24 +161,26 @@ function setWPM(){
 
 // ===== CHECKING CORRECTNESS OF INPUT =====
 
-function checkInput(input){
-    for(var i=0;i<input.length; i++){
-        if(text.charAt(i) != input.charAt(i)){
-            document.querySelector('.textArea').style.backgroundColor = 'red';
-            document.querySelector('.textArea').style.color = 'white';
-            break;
-        }else{
-            document.querySelector('.textArea').style.color = 'green';
-            document.querySelector('.textArea').style.backgroundColor = 'white';
-        }
+function checkInput(i, ch){
+
+    //character typed incorrect
+    if(text.charAt(i) != ch){
+        document.querySelector('.textArea').style.backgroundColor = 'red';
+        document.querySelector('.textArea').style.color = 'white';
+    }  
+    //characters typed correct
+    else{
+        document.querySelector('.textArea').style.color = 'green';
+        document.querySelector('.textArea').style.backgroundColor = 'white';
     }
+    
 }
 
 // ===== DISPLAY END PAGE =====
 
 function displayEndPage(){
     end.style.display = "flex";
-    fadeAll();
+    BlurAll();
     setEndPage();
 }
 
@@ -157,5 +189,5 @@ function displayEndPage(){
 function setEndPage(){
     document.querySelector('.resWPM').innerHTML = wpm+" wpm";
     document.querySelector('.resChar').innerHTML = inputChar;
-    document.querySelector('.resWords').innerHTML = inputWords+" words";
+    document.querySelector('.resWords').innerHTML = inputWords;
 }
