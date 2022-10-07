@@ -8,6 +8,8 @@ var time = document.querySelector('.time');
 var inputChar = 0;
 var inputWords = 0;
 var wpm = 0;
+var incorrect = 0;
+var keyStrokes = 0;
 var end = document.querySelector('.endPage');
 
 const texts = [
@@ -83,6 +85,10 @@ function setText(){
 // ===== INPUT HANDLING FUNCTION =====
 
 function handleInput(){
+
+    // count total keystrokes
+    keyStrokes++;
+
     var inputs = document.querySelector('textarea').value;
 
     if(inputs.length == 1){
@@ -163,12 +169,16 @@ function setWPM(){
 
 function checkInput(i, ch){
 
-    //character typed incorrect
+    // character typed incorrect
     if(text.charAt(i) != ch){
+
+        // count incorrect inputs
+        incorrect++;
+
         document.querySelector('.textArea').style.backgroundColor = 'red';
         document.querySelector('.textArea').style.color = 'white';
     }  
-    //characters typed correct
+    // characters typed correct
     else{
         document.querySelector('.textArea').style.color = 'green';
         document.querySelector('.textArea').style.backgroundColor = 'white';
@@ -188,6 +198,7 @@ function displayEndPage(){
 
 function setEndPage(){
     document.querySelector('.resWPM').innerHTML = wpm+" wpm";
-    document.querySelector('.resChar').innerHTML = inputChar;
-    document.querySelector('.resWords').innerHTML = inputWords;
+    document.querySelector('.accuracy').innerHTML = Math.trunc((keyStrokes - incorrect)*100/keyStrokes) + "%";
+    document.querySelector('.keyStrokes').innerHTML = keyStrokes;
+    document.querySelector('.incorrectWords').innerHTML = incorrect;
 }

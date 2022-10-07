@@ -5,13 +5,15 @@
 }
 
 body{
-    /* min-height: 100vh; */
+    min-height: 100vh;
     width: 100%;
 }
 
 /* ===== WELCOME ===== */
 
 .welcome{
+    width: 800px;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -49,16 +51,16 @@ body{
 
 .welcome button{
     margin-top: 2rem;
-    padding: 0.5rem 1.5rem;
     border-radius: 0.5rem;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 500;
+    letter-spacing: 2.5px;
     background-color: black;
     color: white;
     border: solid rgb(45, 48, 5);
     box-shadow: 6px 6px 10px rgb(118, 118, 6);
     cursor: pointer;
-    padding: 1rem 4rem;
+    padding: 0.85rem 3.5rem;
     width: fit-content;
 }
 

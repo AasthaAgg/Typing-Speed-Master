@@ -23,7 +23,7 @@
         <p>Take the 1 minute typing-test now! ⌨</p>
         <h2>GOOD LUCK!!</h2>
         
-        <button type="submit" onclick="start()">Start</button>
+        <button type="submit" onclick="start()">START</button>
         
     </div>
 
@@ -32,9 +32,9 @@
     <div class="rulesPage">
         <h2>Rules:</h2>
 
-        <p>Type in the input field the highlighted word.</p>
-        <p>The correct words will turn <span class="green">green</span>.</p>
-        <p>And Incorrect letters will turn <span class="red">red</span>.</p>
+        <p>Type in the input field, the same text as shown.</p>
+        <p>While the input is correct, color of the text will remain <span class="green">green</span>.</p>
+        <p>But if the input is incorrect, it will turn <span class="red">red</span>.</p>
         <br>
         <p>Have fun! 😃</p></p>
 
@@ -78,12 +78,13 @@
     <!-- ===== END PAGE ===== -->
 
     <div class="endPage">
-        <h2>OOPs.. Time's Up!!</h2>
+        <h2>Time's Up!!</h2>
         <p class="trophy">🏆</p>
         <p>Your typing speed is <span class="resWPM"></span></p>
         <br>
-        <p>No. of characters : <span class="resChar"></span></p>
-        <p>No. of words : <span class="resWords"></span></p>
+        <p>Accuracy : <span class="accuracy"></span></p>
+        <p>Total keystrokes : <span class="keyStrokes"></span></p>
+        <p>No. of Incorrect inputs : <span class="incorrectWords"></span></p>
         <button type="submit" onclick="location.reload()">Try again!!</button>
     </div>
 
