@@ -331,7 +331,7 @@ body{
     /* ===== MAIN DIV ===== */
 
     .main{
-        padding: 0.5rem;
+        padding: 2rem;
     }
 
     .main .gameArea header section span{
@@ -352,12 +352,6 @@ body{
 
     .main .gameArea .rulesButton{
         top: -50px;
-    }
-
-    /* ===== GAME AREA - MAIN SECTION ===== */
-
-    .main .gameArea main{
-        padding: 0 1rem 1rem 1rem;
     }
 
     /* ===== MAIN - TEXT AND INPUT FIELDS ===== */
@@ -411,6 +405,12 @@ body{
 
     .main .gameArea header section span{
         font-size: 18px;
+    }
+
+     /* ===== GAME AREA - MAIN SECTION ===== */
+
+     .main .gameArea main{
+        padding: 0 2rem 2rem 2rem;
     }
 
     
@@ -507,4 +507,18 @@ body{
         letter-spacing: 1.5px;
     }
 
+}
+
+/* ===== CLASS FOR CORRECT INPUT ===== */
+
+.correct{
+    color: green;
+    font-weight: 500;
+}
+
+/* ===== CLASS FOR INCORRECT INPUT ===== */
+
+.incorrect{
+    color: white;
+    background-color: red;
 }

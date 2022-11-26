@@ -1,16 +1,20 @@
-var welcome = document.querySelector('.welcome');
-var rules = document.querySelector('.rulesPage');
-var main = document.querySelector('.main');
-var text;
-var timer;
-var secs = 60;
-var time = document.querySelector('.time');
-var inputChar = 0;
-var inputWords = 0;
-var wpm = 0;
-var incorrect = 0;
-var keyStrokes = 0;
-var end = document.querySelector('.endPage');
+let text;
+let timer;
+let secs = 60;
+let userInputChars;
+let inputWords = 0;
+let wpm = 0;
+let incorrect = 0;
+let keyStrokes = 0;
+
+const welcome = document.querySelector('.welcome');
+const rules = document.querySelector('.rulesPage');
+const main = document.querySelector('.main');
+const inputArea = document.querySelector('.inputArea');
+const textArea = document.querySelector('.textArea');
+const time = document.querySelector('.time');
+const end = document.querySelector('.endPage');
+
 
 const texts = [
     `You never read a book on psychology, Tippy. You didn't need to. You knew by some divine instinct that you can make more friends in two months by becoming genuinely interested in other people than you can in two years by trying to get other people interested in you.`,
@@ -19,15 +23,36 @@ const texts = [
     `I'm a broke-nose fighter. I'm a loose-lipped liar. Searching for the edge of darkness. But all I get is just tired. I went looking for attention. In all the wrong places. I was needing a redemption. And all I got was just cages.`
 ];
 
-setText();
-
 
 // ===== START =====
 
 function start(){
-
+    // remove welcome box
     welcome.style.display = "none";
+
+    // remove blur effect and set text in textArea
     removeBlur();
+    setText();
+}
+
+
+// ===== SET TEXT IN TEXTAREA =====
+
+function setText(){
+
+    // select random text from texts array
+    text = texts[Math.floor(Math.random() * texts.length)];
+
+    // array of characters in the text
+    let textArray = text.split("").map((value) => {
+        
+        // wrap the characters in a span tag
+        return "<span class = 'text-chars'>" + value + "</span>";
+    });
+
+    // join array to display
+    textArea.innerHTML += textArray.join("");
+
 }
 
 
@@ -75,50 +100,53 @@ function removeBlur(){
      document.querySelector('textarea').disabled = false;
 }
 
-// ===== SET TEXT IN TEXTAREA =====
-
-function setText(){
-    text = texts[Math.floor(Math.random() * texts.length)];
-    document.querySelector('.textArea').innerHTML = text;
-}
 
 // ===== INPUT HANDLING FUNCTION =====
 
 function handleInput(){
 
+    // array of user input characters
+    userInputChars = inputArea.value.split("");
+    
+    let textChars = document.querySelectorAll('.text-chars');
+
+    // create array of span tags
+    textChars = Array.from(textChars);
+
+    
+    // when first character is entered 
+    if(userInputChars.length == 1){
+
+        // remove start head
+        document.querySelector('.startStmt').style.display = "none";
+
+        // start timer
+        clearTimeout(timer);
+        startTimer(secs);
+    }
+
     // count total keystrokes
     keyStrokes++;
 
-    var inputs = document.querySelector('textarea').value;
+    // set all parameters
+    setCharacters();
+    setWords();
+    setWPM();
 
-    if(inputs.length == 1){
-        startGame();
+
+    // if user input is backspace or null character
+
+    if(textChars[userInputChars.length].classList.contains("correct")){
+        textChars[userInputChars.length].classList.remove("correct");
+    }
+    else{
+        textChars[userInputChars.length].classList.remove("incorrect");
     }
 
-    // set all parameters
-    setCharacters(inputs.length);
-    setWords(inputs);
-    setWPM(inputs);
-
     // check accuracy of input
-    checkInput(inputs.length-1, inputs.charAt(inputs.length-1));
+    checkInput(textChars[userInputChars.length-1], userInputChars.length-1);
 }
 
-// ===== START GAME =====
-
-function startGame(){
-    removeStartHead();
-
-    // start timer
-    clearTimeout(timer);
-    startTimer(secs);
-}
-
-// ===== REMOVE HEAD =====
-
-function removeStartHead(){
-    document.querySelector('.startStmt').style.display = "none";
-}
 
 // ===== START TIMER =====
 
@@ -142,17 +170,16 @@ function startTimer(sec){
 
 // ===== SET NO. OF CHARACTERS INPUT =====
 
-function setCharacters(input){
-    inputChar = input;
-    document.querySelector('.noOfChar').innerHTML = inputChar;
+function setCharacters(){
+    document.querySelector('.noOfChar').innerHTML = userInputChars.length;
 }
 
 // ===== SET NO. OF WORDS INPUT =====
 
-function setWords(input){
-    inputWords = input.split(" ").length;
+function setWords(){
+    inputWords = inputArea.value.split(" ").length;
 
-    if(input.length == 0){
+    if(userInputChars.length == 0){
         inputWords = '0';
     }
     document.querySelector('.noOfWords').innerHTML = inputWords;
@@ -167,23 +194,17 @@ function setWPM(){
 
 // ===== CHECKING CORRECTNESS OF INPUT =====
 
-function checkInput(i, ch){
+function checkInput(char, index){
 
-    // character typed incorrect
-    if(text.charAt(i) != ch){
-
-        // count incorrect inputs
-        incorrect++;
-
-        document.querySelector('.textArea').style.backgroundColor = 'red';
-        document.querySelector('.textArea').style.color = 'white';
-    }  
-    // characters typed correct
-    else{
-        document.querySelector('.textArea').style.color = 'green';
-        document.querySelector('.textArea').style.backgroundColor = 'white';
-    }
-    
+        // if user input is correct
+        if(char.innerText == userInputChars[index]) {
+            char.classList.add("correct");
+        }
+        // if user input is incorrect
+        else{
+            char.classList.add("incorrect");
+            incorrect++;
+        }
 }
 
 // ===== DISPLAY END PAGE =====
@@ -198,7 +219,7 @@ function displayEndPage(){
 
 function setEndPage(){
     document.querySelector('.resWPM').innerHTML = wpm+" wpm";
-    document.querySelector('.accuracy').innerHTML = Math.trunc((keyStrokes - incorrect)*100/keyStrokes) + "%";
+    document.querySelector('.accuracy').innerHTML = Math.trunc((userInputChars.length)*100/keyStrokes) + "%";
     document.querySelector('.keyStrokes').innerHTML = keyStrokes;
     document.querySelector('.incorrectWords').innerHTML = incorrect;
 }
