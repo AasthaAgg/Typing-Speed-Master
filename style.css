@@ -395,6 +395,9 @@ body{
         letter-spacing: 1.5px;
     }
 
+    .main{
+        padding: 1rem;
+    }
     
     /* ===== GAME AREA - HEADER ===== */
 
