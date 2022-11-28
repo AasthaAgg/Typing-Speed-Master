@@ -4,6 +4,7 @@ let secs = 60;
 let userInputChars;
 let inputWords = 0;
 let wpm = 0;
+let correct = 0;
 let incorrect = 0;
 let keyStrokes = 0;
 
@@ -199,6 +200,7 @@ function checkInput(char, index){
         // if user input is correct
         if(char.innerText == userInputChars[index]) {
             char.classList.add("correct");
+            correct++;
         }
         // if user input is incorrect
         else{
@@ -219,7 +221,7 @@ function displayEndPage(){
 
 function setEndPage(){
     document.querySelector('.resWPM').innerHTML = wpm+" wpm";
-    document.querySelector('.accuracy').innerHTML = Math.trunc((userInputChars.length)*100/keyStrokes) + "%";
+    document.querySelector('.accuracy').innerHTML = Math.trunc((correct * 100) / keyStrokes) + "%";
     document.querySelector('.keyStrokes').innerHTML = keyStrokes;
     document.querySelector('.incorrectWords').innerHTML = incorrect;
 }
